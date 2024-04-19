@@ -23,7 +23,6 @@ public class Util {
         int stringLength = random.nextInt(10);
 
         for (int i = 0; i < stringLength; i++) {
-//            int num = random.nextInt(left, right);
             int num = random.nextInt(right - left) + left;
             stringBuilder.append((char) num);
         }
@@ -33,10 +32,27 @@ public class Util {
 
     public static String[] transformStringArray(String[] array) {
         Random random = new Random();
-        for (int i = 0; i < array.length; i++) {
-            int endOfString = random.nextInt(4);
-//            array[i] = array[i].substring(0, endOfString); //TODO
+        String[] newArray = new String[array.length / 3];
+        int counter = 0;
+        for (String string : array) {
+            int size = string.length();
+            String s = size > 3 ? string.substring(0, random.nextInt(4)) : string.substring(0, random.nextInt(size == 0 ? 1 : size));
+            if (!s.isEmpty()) {
+                try {
+                    newArray[counter] = s;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    newArray = resizeArray(newArray, counter + 1);
+                    newArray[counter] = s;
+                }
+                counter++;
+            }
         }
-        return array;
+        return newArray;
+    }
+
+    public static String[] resizeArray(String[] array, int newLength) {
+        String[] newArray = new String[newLength];
+        System.arraycopy(array, 0, newArray, 0, array.length);
+        return newArray;
     }
 }

@@ -8,6 +8,8 @@ import java.util.Arrays;
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(Util.createStringArray(15)));
+        String[] array = Util.createStringArray(15);
+        System.out.println(Arrays.toString(array));
+        System.out.println(Arrays.toString(Util.transformStringArray(array)));
     }
 }
